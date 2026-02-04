@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on:
+    push:
+        branches:
+            - main
+            - test
+
+    pull_request:
+        branches: 
+            - main
+            - test
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: check out code
+              uses: actions/checkout@v6.0.2
+
+            - name: run test
+              run: bash src/test.sh
+
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test
+        steps: 
+            - name: simulate deployment
+              run: echo "test passed! deploying application to production"
+
+
+
+
